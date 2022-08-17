@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador pasajes de buque</title>
+</head>
+<body>
+    <h1>Bienvenidos a Buques Fabrykant</h1>
+    <p>Aqui podra calcular el costo de sus pasajes</p>
+    <form action="#" method="get">
+        <label>
+            <select name="origen">
+                <option value="origen">Elija Origen</option>
+                <option value="Buenos Aires">Buenos Aires</option>
+                <option value="Colonia">Colonia</option>
+                <option value="Montevideo">Montevideo</option>
+            </select>
+        </label>
+        <label>
+            <select name="destino">
+                <option value="destino">Elija Destino</option>
+                <option value="Buenos Aires">Buenos Aires</option>
+                <option value="Colonia">Colonia</option>
+                <option value="Montevideo">Montevideo</option>
+            </select>
+        </label>
+            <input type="number" min="1" name="pasajeros" placeholder="Cantidad pasajeros">
+        <br>
+        <label>
+            <select name="vehiculo">
+                <option value="seleccion">Seleccione vehiculo</option>
+                <option value="no">No</option>
+                <option value="moto">Auto</option>
+                <option value="auto">Camioneta</option>
+                <option value="camioneta">Moto</option>
+            </select>
+        </label>
+        <br><br>
+        <input type="submit" value="Enviar">
+    </form>
+    <script src="simulador.js"></script>
+</body>
+</html>
