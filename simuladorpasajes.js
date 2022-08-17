@@ -1,4 +1,6 @@
-//SIMULADOR DE CALCULADOR COSTO PASAJE BUQUE
+//SIMULADOR DE CALCULADOR COSTO PASAJE BUQUE. SE INGRESA UN ORIGEN Y UN DESTINO,
+//CANTIDAD DE PASAJEROS Y SI SE VIAJA O NO CON UN VEHICULO(MOTO, AUTO, CAMIONETA)
+//EN FUNCION DEL ORIGEN Y DESTINO SE CALCULA EL COSTO DE LOS PASAJES, INCLUYENDO IMPUESTOS
 let origen = prompt("Ingrese el origen: Buenos Aires/Colonia/Montevideo");
 while(origen != "Buenos Aires" && origen != "Colonia" && origen != "Montevideo"){
     alert("Ingrese correctamente el origen");
