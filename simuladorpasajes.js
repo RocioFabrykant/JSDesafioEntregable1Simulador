@@ -2,11 +2,10 @@
 //CANTIDAD DE PASAJEROS Y SI SE VIAJA O NO CON UN VEHICULO(MOTO, AUTO, CAMIONETA)
 //EN FUNCION DEL ORIGEN Y DESTINO SE CALCULA EL COSTO DE LOS PASAJES, INCLUYENDO IMPUESTOS
 class Viaje{
-    constructor(origen,destino,cantidad_pasajeros,con_sin_vehiculo,vehiculo){
+    constructor(origen,destino,cantidad_pasajeros,vehiculo){
         this.origen = origen;
         this.destino = destino;
         this.cantidad_pasajeros = cantidad_pasajeros;
-        this.con_sin_vehiculo = con_sin_vehiculo;
         this.vehiculo = vehiculo;
     }
     calcular_costo_vehiculo(){
@@ -94,7 +93,7 @@ do{
     vehiculo = prompt("Indique el vehiculo moto/camioneta/auto");
 }while(vehiculo!= "moto" && vehiculo != "camioneta" && vehiculo != "auto")
 }
-let nuevo_viaje = new Viaje(origen,destino,cantidad_pasajeros,con_sin_vehiculo,vehiculo);
+let nuevo_viaje = new Viaje(origen,destino,cantidad_pasajeros,vehiculo);
 let costo_vehiculo = nuevo_viaje.calcular_costo_vehiculo();
 let costo_pasajeros = nuevo_viaje.calcular_costo_pasajeros();
 let total_con_impuestos = nuevo_viaje.calcular_total_con_impuestos(costo_vehiculo,costo_pasajeros);
@@ -103,8 +102,15 @@ console.log("El costo del pasaje es", total_con_impuestos);
 //AGREGO LOS OBJETOS AL ARREGLO A TRAVÉS DEL MÉTODO PUSH
 arr_viajes.push(nuevo_viaje);
 }
+//RECORRO EL ARREGLO DE OBJETOS Y MUESTRO POR CONSOLA
+for(let viaje of arr_viajes){
+    console.log("<------------------------->");
+    console.log("Origen:",viaje.origen);
+    console.log("Destino:",viaje.destino);
+    console.log("Cantidad pasajeros:",viaje.cantidad_pasajeros);
+    console.log("Vehiculo:",viaje.vehiculo);
+}
 
-console.log(arr_viajes);
 
 
     
