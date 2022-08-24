@@ -100,6 +100,7 @@ let costo_pasajeros = nuevo_viaje.calcular_costo_pasajeros();
 let total_con_impuestos = nuevo_viaje.calcular_total_con_impuestos(costo_vehiculo,costo_pasajeros);
 console.log("El costo del pasaje es", total_con_impuestos);
 
+//AGREGO LOS OBJETOS AL ARREGLO A TRAVÉS DEL MÉTODO PUSH
 arr_viajes.push(nuevo_viaje);
 }
 
