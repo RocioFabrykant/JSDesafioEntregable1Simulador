@@ -1,7 +1,68 @@
 //SIMULADOR DE CALCULADOR COSTO PASAJE BUQUE. SE INGRESA UN ORIGEN Y UN DESTINO,
 //CANTIDAD DE PASAJEROS Y SI SE VIAJA O NO CON UN VEHICULO(MOTO, AUTO, CAMIONETA)
 //EN FUNCION DEL ORIGEN Y DESTINO SE CALCULA EL COSTO DE LOS PASAJES, INCLUYENDO IMPUESTOS
-let origen = prompt("Ingrese el origen: Buenos Aires/Colonia/Montevideo");
+class Viaje{
+    constructor(origen,destino,cantidad_pasajeros,con_sin_vehiculo,vehiculo){
+        this.origen = origen;
+        this.destino = destino;
+        this.cantidad_pasajeros = cantidad_pasajeros;
+        this.con_sin_vehiculo = con_sin_vehiculo;
+        this.vehiculo = vehiculo;
+    }
+    calcular_costo_vehiculo(){
+        let costovehiculo;
+    if(this.destino == "Colonia"){    
+        if(this.vehiculo == "moto"){
+            costovehiculo = 4000;
+        }else if(this.vehiculo == "auto"){
+            costovehiculo = 10000;
+        }else if(this.vehiculo == "camioneta"){
+            costovehiculo = 15000;
+        }else{
+            costovehiculo = 0;
+        }
+    }else if(this.destino == "Montevideo" ||this.destino == "Buenos Aires"){
+        if(this.vehiculo == "moto"){
+            costovehiculo = 6000;
+        }else if(this.vehiculo == "auto"){
+            costovehiculo = 12000;
+        }else if(this.vehiculo == "camioneta"){
+            costovehiculo = 16000;
+        }else{
+            costovehiculo = 0;
+        }
+    }return costovehiculo
+    }
+    
+    calcular_costo_pasajeros(){
+        let costopasajeros;
+        if(this.destino == "Colonia"){
+            costopasajeros = this.cantidad_pasajeros*8000;
+        }else if(this.destino == "Buenos Aires" || this.destino == "Montevideo"){
+            costopasajeros = this.cantidad_pasajeros*10000;
+        }
+        return costopasajeros
+    }
+    
+    calcular_total_con_impuestos(costo_vehiculo,costo_pasajeros){
+        let total_sin_impuestos = costo_vehiculo + costo_pasajeros;
+        let total_con_impuestos;
+        if(this.origen == "Colonia"){
+            total_con_impuestos = total_sin_impuestos*1.2;
+        }else if(this.origen == "Montevideo"){
+            total_con_impuestos = total_sin_impuestos*1.25;
+        }else if(this.origen == "Buenos Aires"){
+            total_con_impuestos = total_sin_impuestos*1.3;
+        }
+        
+        return total_con_impuestos
+    }
+}
+let arr_viajes = [];
+
+//SIMULO QUE INGRESAN DOS VIAJES
+for(i=0;i<2;i++){
+    let origen = prompt("Ingrese el origen: Buenos Aires/Colonia/Montevideo");
 while(origen != "Buenos Aires" && origen != "Colonia" && origen != "Montevideo"){
     alert("Ingrese correctamente el origen");
     origen = prompt("Ingrese el origen: Buenos Aires/Colonia/Montevideo");
@@ -33,59 +94,17 @@ do{
     vehiculo = prompt("Indique el vehiculo moto/camioneta/auto");
 }while(vehiculo!= "moto" && vehiculo != "camioneta" && vehiculo != "auto")
 }
+let nuevo_viaje = new Viaje(origen,destino,cantidad_pasajeros,con_sin_vehiculo,vehiculo);
+let costo_vehiculo = nuevo_viaje.calcular_costo_vehiculo();
+let costo_pasajeros = nuevo_viaje.calcular_costo_pasajeros();
+let total_con_impuestos = nuevo_viaje.calcular_total_con_impuestos(costo_vehiculo,costo_pasajeros);
+console.log("El costo del pasaje es", total_con_impuestos);
 
-
-function calcular_costo_vehiculo(vehiculo,destino){
-    let costovehiculo;
-if(destino == "Colonia"){    
-    if(vehiculo == "moto"){
-        costovehiculo = 4000;
-    }else if(vehiculo == "auto"){
-        costovehiculo = 10000;
-    }else if(vehiculo == "camioneta"){
-        costovehiculo = 15000;
-    }else{
-        costovehiculo = 0;
-    }
-}else if(destino == "Montevideo" ||destino == "Buenos Aires"){
-    if(vehiculo == "moto"){
-        costovehiculo = 6000;
-    }else if(vehiculo == "auto"){
-        costovehiculo = 12000;
-    }else if(vehiculo == "camioneta"){
-        costovehiculo = 16000;
-    }else{
-        costovehiculo = 0;
-    }
-}return costovehiculo
+arr_viajes.push(nuevo_viaje);
 }
 
-function calcular_costo_pasajeros(pasajeros,destino){
-    let costopasajeros;
-    if(destino == "Colonia"){
-        costopasajeros = pasajeros*8000;
-    }else if(destino == "Buenos Aires" || destino == "Montevideo"){
-        costopasajeros = pasajeros*10000;
-    }
-    return costopasajeros
-}
+console.log(arr_viajes);
 
-function calcular_impuestos(total,origen){
-    let impuestos;
-    if(origen == "Colonia"){
-        impuestos = total*0.2;
-    }else if(origen == "Montevideo"){
-        impuestos = total*0.25;
-    }else if(origen == "Buenos Aires"){
-        impuestos = total*0.3;
-    }
-    return impuestos
-}
+
     
 
-let costo_vehiculo = calcular_costo_vehiculo(vehiculo,destino);
-let costo_pasajeros = calcular_costo_pasajeros(cantidad_pasajeros,destino);
-let total_sin_impuestos = costo_vehiculo + costo_pasajeros;
-let impuestos = calcular_impuestos(total_sin_impuestos,origen);
-let total_con_impuestos = total_sin_impuestos + impuestos;
-console.log("El costo del pasaje es", total_con_impuestos);
