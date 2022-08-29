@@ -93,7 +93,7 @@ totalpasajeros = totalpasajeros + cantidad_pasajeros;
 if(totalpasajeros> capacidad_total_pasajeros){
         alert("No hay capacidad disponible");
         totalpasajeros = totalpasajeros - cantidad_pasajeros;
-        cantidad_pasajeros = 0;
+        //cantidad_pasajeros = 0;
         continue;
     }
 
