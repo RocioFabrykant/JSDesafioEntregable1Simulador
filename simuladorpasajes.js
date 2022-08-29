@@ -68,7 +68,7 @@ class Viaje{
 let arr_viajes = [];
 
 //SIMULO QUE INGRESAN TRES VIAJES
-for(i=0; i<4; i++) {
+for(i=0; i<3; i++) {
     let origen = prompt("Ingrese el origen: Buenos Aires/Colonia/Montevideo");
 while(origen != "Buenos Aires" && origen != "Colonia" && origen != "Montevideo"){
     alert("Ingrese correctamente el origen");
