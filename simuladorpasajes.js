@@ -9,6 +9,7 @@ let totalpasajeros= 0;
 let acumuladorauto = 0;
 let acumuladormoto = 0;
 let acumuladorcamioneta = 0;
+let contadorobjetos = 0;
 class Viaje{
     constructor(origen,destino,cantidad_pasajeros,vehiculo){
         this.origen = origen;
@@ -135,9 +136,11 @@ form.addEventListener("submit" , function(e){
     }else{
 
 let nuevo_viaje = new Viaje(origen,destino,cantidad_pasajeros,vehiculo);
+contadorobjetos++;
 let costo_vehiculo = nuevo_viaje.calcular_costo_vehiculo();
 let costo_pasajeros = nuevo_viaje.calcular_costo_pasajeros();
 let total_con_impuestos = nuevo_viaje.calcular_total_con_impuestos(costo_vehiculo,costo_pasajeros);
+nuevo_viaje.costototal = total_con_impuestos;
 //console.log("El costo del pasaje es", total_con_impuestos);
 let msje_costo = document.createElement("p");
 msje_costo.innerText = `El costo del pasaje es: $${total_con_impuestos}`;
@@ -147,10 +150,50 @@ arr_viajes.push(nuevo_viaje);
 //LISTO EL VIAJE
 let lista = document.getElementById("lista_viajes");
         let li = document.createElement("li");
-        li.innerHTML = `<span>Origen: ${nuevo_viaje.origen} Destino: ${nuevo_viaje.destino} Cantidad pasajeros: ${nuevo_viaje.cantidad_pasajeros} Vehiculo: ${nuevo_viaje.vehiculo}</span>`
+        li.innerHTML = `<span>Origen: ${nuevo_viaje.origen} Destino: ${nuevo_viaje.destino} Cantidad pasajeros: ${nuevo_viaje.cantidad_pasajeros} Vehiculo: ${nuevo_viaje.vehiculo} Costo total: ${nuevo_viaje.costototal}</span>`
         lista.append(li);
 }
     }}
+});
+
+let botonborrar = document.getElementById("borrar");
+botonborrar.addEventListener("click", function(){    
+    totalpasajeros= 0;
+    acumuladorauto = 0;
+    acumuladormoto = 0;
+    acumuladorcamioneta = 0; 
+    let lista = document.getElementById("lista_viajes");
+    while(lista.firstChild){
+        lista.removeChild(lista.lastChild);
+    }
+    
+    let mensajes = document.getElementById("mensajes");
+    while(mensajes.firstChild){
+        mensajes.removeChild(mensajes.lastChild);
+    }
+    
+    let origen = document.getElementById("origen");
+    origen.value = "origen";
+    let destino = document.getElementById("destino");
+    destino.value = "destino";
+    let vehiculo = document.getElementById("vehiculo");
+    vehiculo.value = ""
+    let cantidad_pasajeros = document.getElementById("pasajeros");
+    cantidad_pasajeros.value = "";
+    for(let viaje of arr_viajes){
+        console.log("arreglo antes de borrar registros"); 
+        console.log(viaje);
+    }
+   
+    for(let i=0; i<contadorobjetos;i++){
+        arr_viajes.pop();
+    }
+    console.log("arreglo luego de borrar");
+    console.log(arr_viajes);
+
+    
+
+
 });
 
 
