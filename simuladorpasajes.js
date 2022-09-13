@@ -5,11 +5,19 @@ let capacidad_total_pasajeros = 20;
 let capacidad_total_autos = 2;
 let capacidad_total_motos = 2;
 let capacidad_total_camionetas = 1;
+
 let totalpasajeros= 0;
 let acumuladorauto = 0;
 let acumuladormoto = 0;
 let acumuladorcamioneta = 0;
-let contadorobjetos = 0;
+//let contadorobjetos = 0;
+/*
+localStorage.setItem("Acum_pasajeros", totalpasajeros);
+localStorage.setItem("Acum_autos",acumuladorauto);
+localStorage.setItem("Acum_motos",acumuladormoto);
+localStorage.setItem("Acum_camionetas",acumuladorcamioneta);*/
+//localStorage.setItem("Acum_sesion",contadorobjetos);
+
 class Viaje{
     constructor(origen,destino,cantidad_pasajeros,vehiculo){
         this.origen = origen;
@@ -75,7 +83,7 @@ form.addEventListener("submit" , function(e){
     let destino = document.getElementById("destino").value;
     let vehiculo = document.getElementById("vehiculo").value;
     let cantidad_pasajeros = Number(document.getElementById("pasajeros").value);
-    let mensajes = document.getElementById("mensajes");
+    //let mensajes = document.getElementById("mensajes");
     //console.log(origen,destino,vehiculo,cantidad_pasajeros);
     if(destino == origen){
         alert("El destino no puede ser igual al origen");
@@ -90,44 +98,88 @@ form.addEventListener("submit" , function(e){
     }else{
 
     
-
-    totalpasajeros = totalpasajeros + cantidad_pasajeros;
-    if(totalpasajeros> capacidad_total_pasajeros){
+    if(isNaN(parseInt(localStorage.getItem("Acum_pasajeros")))){
+        totalpasajeros = totalpasajeros + cantidad_pasajeros;
+        localStorage.setItem("Acum_pasajeros", totalpasajeros);
+    }else{
+        totalpasajeros = parseInt(localStorage.getItem("Acum_pasajeros"));
+        totalpasajeros = totalpasajeros + cantidad_pasajeros;
+        localStorage.setItem("Acum_pasajeros", totalpasajeros);
+    }
+    
+    
+    if(parseInt(localStorage.getItem("Acum_pasajeros"))> capacidad_total_pasajeros){
         alert("No hay capacidad disponible");
+        totalpasajeros = parseInt(localStorage.getItem("Acum_pasajeros"));
         totalpasajeros = totalpasajeros - cantidad_pasajeros;
+        localStorage.setItem("Acum_pasajeros", totalpasajeros);
         //let msje_dos = document.createElement("p");
         //msje_dos.innerText = `No hay capacidad disponible de pasajeros`;
         //mensajes.append(msje_dos);
         //cantidad_pasajeros = 0;
         
-    }else{
+    }else{    
         if(vehiculo == "moto"){
-        acumuladormoto++;
+            if(isNaN(parseInt(localStorage.getItem("Acum_motos")))){
+                acumuladormoto++;
+                localStorage.setItem("Acum_motos", acumuladormoto);
+            }else{
+                acumuladormoto = parseInt(localStorage.getItem("Acum_motos"));
+                acumuladormoto++;
+                localStorage.setItem("Acum_motos", acumuladormoto);
+            }
         
     }else if(vehiculo == "camioneta"){
-        acumuladorcamioneta++;
+
+        if(isNaN(parseInt(localStorage.getItem("Acum_camionetas")))){
+            acumuladorcamioneta++;
+            localStorage.setItem("Acum_camionetas", acumuladorcamioneta);
+        }else{
+            acumuladorcamioneta = parseInt(localStorage.getItem("Acum_camionetas"));
+            acumuladorcamioneta++;
+            localStorage.setItem("Acum_camionetas",acumuladorcamioneta);
+        }
     
     }else if(vehiculo == "auto"){
-        acumuladorauto++;
-        
+    
+        if(isNaN(parseInt(localStorage.getItem("Acum_autos")))){
+            acumuladorauto++;
+            localStorage.setItem("Acum_autos",acumuladorauto);
+        }else{
+            acumuladorauto = parseInt(localStorage.getItem("Acum_autos"));
+            acumuladorauto++;
+            localStorage.setItem("Acum_autos",acumuladorauto);
+        }
     }
 
-    if(vehiculo == "moto" && acumuladormoto>capacidad_total_motos){
+    if(vehiculo == "moto" && parseInt(localStorage.getItem("Acum_motos"))>capacidad_total_motos){
+        acumuladormoto--;
+        localStorage.setItem("Acum_motos", acumuladormoto);
         alert("No hay capacidad suficiente para motos");
+        totalpasajeros = totalpasajeros - cantidad_pasajeros;
+        localStorage.setItem("Acum_pasajeros", totalpasajeros);
         //let msje_tres = document.createElement("p");
         //msje_tres.innerText = `No hay capacidad suficiente para motos`;
         //mensajes.append(msje_tres);
-        vehiculo = "";
+        //vehiculo = "";
         
-    }else if(vehiculo == "camioneta" && acumuladorcamioneta>capacidad_total_camionetas){
+    }else if(vehiculo == "camioneta" && parseInt(localStorage.getItem("Acum_camionetas"))>capacidad_total_camionetas){
+        acumuladorcamioneta--;
+        localStorage.setItem("Acum_camionetas",acumuladorcamioneta);
         alert("No hay capacidad suficiente para camionetas");
+        totalpasajeros = totalpasajeros - cantidad_pasajeros;
+        localStorage.setItem("Acum_pasajeros", totalpasajeros);
         //let msje_cuatro = document.createElement("p");
         //msje_cuatro.innerText = `No hay capacidad suficiente para camionetas`
         //mensajes.append(msje_cuatro);
         //vehiculo = "";
         
-    }else if(vehiculo == "auto" && acumuladorauto>capacidad_total_autos){
+    }else if(vehiculo == "auto" && parseInt(localStorage.getItem("Acum_autos"))>capacidad_total_autos){
+        acumuladorauto--;
+        localStorage.setItem("Acum_autos",acumuladorauto);
         alert("No hay capacidad suficiente para autos");
+        totalpasajeros = totalpasajeros - cantidad_pasajeros;
+        localStorage.setItem("Acum_pasajeros", totalpasajeros);
         //let msje_cinco = document.createElement("p");
         //msje_cinco.innerText = `No hay capacidad suficiente para autos`;
         //mensajes.append(msje_cinco);
@@ -136,32 +188,79 @@ form.addEventListener("submit" , function(e){
     }else{
 
 let nuevo_viaje = new Viaje(origen,destino,cantidad_pasajeros,vehiculo);
-contadorobjetos++;
+//contadorobjetos++;
+//localStorage.setItem("Acum_sesion",contadorobjetos);
 let costo_vehiculo = nuevo_viaje.calcular_costo_vehiculo();
 let costo_pasajeros = nuevo_viaje.calcular_costo_pasajeros();
 let total_con_impuestos = nuevo_viaje.calcular_total_con_impuestos(costo_vehiculo,costo_pasajeros);
 nuevo_viaje.costototal = total_con_impuestos;
 //console.log("El costo del pasaje es", total_con_impuestos);
-let msje_costo = document.createElement("p");
+/*let msje_costo = document.createElement("p");
 msje_costo.innerText = `El costo del pasaje es: $${total_con_impuestos}`;
-mensajes.append(msje_costo);
+mensajes.append(msje_costo);*/
 //AGREGO LOS OBJETOS AL ARREGLO A TRAVÉS DEL MÉTODO PUSH
 arr_viajes.push(nuevo_viaje);
+let id_viaje = arr_viajes.indexOf(nuevo_viaje);
+nuevo_viaje.id = id_viaje;
+//CONVIERTO A JSON EL ARREGLO
+let JSON_arreglo = JSON.stringify(arr_viajes);
+localStorage.setItem("viaje",JSON_arreglo);
+
+
 //LISTO EL VIAJE
 let lista = document.getElementById("lista_viajes");
         let li = document.createElement("li");
-        li.innerHTML = `<span>Origen: ${nuevo_viaje.origen} Destino: ${nuevo_viaje.destino} Cantidad pasajeros: ${nuevo_viaje.cantidad_pasajeros} Vehiculo: ${nuevo_viaje.vehiculo} Costo total: ${nuevo_viaje.costototal}</span>`
+        /*let li_id = document.createElement("li");
+        li_id.innerHTML = `<span>Id del viaje: ${nuevo_viaje.id}</span>`;
+        lista.append(li_id);*/
+        li.innerHTML = `<span>Origen: ${nuevo_viaje.origen} Destino: ${nuevo_viaje.destino} Cantidad pasajeros: ${nuevo_viaje.cantidad_pasajeros} Vehiculo: ${nuevo_viaje.vehiculo} Costo total: ${nuevo_viaje.costototal}
+        </span><button id= ${nuevo_viaje.id} class="borrar">Cancelar viaje</button>`;
         lista.append(li);
+        let botones_borrar = document.querySelectorAll(".borrar");
+        for(let boton of botones_borrar){
+            boton.addEventListener("click",borrarviaje);
+        }
 }
     }}
 });
 
+function borrarviaje(e){
+    //console.log(e)
+    let hijo = parseInt(e.target.id);
+    let padre = e.target.parentNode;
+    padre.remove();
+    let recupero_arreglo = [];
+    recupero_arreglo = JSON.parse(localStorage.getItem("viaje")); 
+    if(recupero_arreglo[hijo].vehiculo == "moto"){
+        let acumula_moto = parseInt(localStorage.getItem("Acum_motos"));
+        acumula_moto--;
+        localStorage.setItem("Acum_motos",acumula_moto);
+    }else if(recupero_arreglo[hijo].vehiculo == "auto"){
+        let acumula_auto = parseInt(localStorage.getItem("Acum_autos"));
+        acumula_auto--;
+        localStorage.setItem("Acum_autos",acumula_auto);
+    }else if(recupero_arreglo[hijo].vehiculo == "camioneta"){
+        let acumula_camioneta = parseInt(localStorage.getItem("Acum_camionetas"));
+        acumula_camioneta--;
+        localStorage.setItem("Acum_camionetas",acumula_camioneta);
+    }
+    
+    let pasajeros = parseInt(localStorage.getItem("Acum_pasajeros"));
+    pasajeros = pasajeros - recupero_arreglo[hijo].cantidad_pasajeros;
+    localStorage.setItem("Acum_pasajeros", pasajeros);
+    delete recupero_arreglo[hijo];
+    let JSON_arreglo = JSON.stringify(recupero_arreglo);
+    localStorage.setItem("viaje", JSON_arreglo);
+    
+
+}
+
 let botonborrar = document.getElementById("borrar");
 botonborrar.addEventListener("click", function(){    
-    totalpasajeros= 0;
-    acumuladorauto = 0;
-    acumuladormoto = 0;
-    acumuladorcamioneta = 0; 
+    /*localStorage.setItem("Acum_pasajeros", 0);
+    localStorage.setItem("Acum_autos",0);
+    localStorage.setItem("Acum_motos",0);
+    localStorage.setItem("Acum_camionetas",0);
     let lista = document.getElementById("lista_viajes");
     while(lista.firstChild){
         lista.removeChild(lista.lastChild);
@@ -171,7 +270,7 @@ botonborrar.addEventListener("click", function(){
     while(mensajes.firstChild){
         mensajes.removeChild(mensajes.lastChild);
     }
-    
+    */
     let origen = document.getElementById("origen");
     origen.value = "origen";
     let destino = document.getElementById("destino");
@@ -180,16 +279,31 @@ botonborrar.addEventListener("click", function(){
     vehiculo.value = ""
     let cantidad_pasajeros = document.getElementById("pasajeros");
     cantidad_pasajeros.value = "";
+    /*console.log("Arreglo antes de borrar registros"); 
+    /*ANTES DEL LOCAL STORAGE:
     for(let viaje of arr_viajes){
-        console.log("arreglo antes de borrar registros"); 
+        
         console.log(viaje);
+    }*/
+    /*
+    let recupero_arreglo = JSON.parse(localStorage.getItem("viaje"));
+    let lista_total = document.getElementById("lista_total");
+    let li_titulo = document.createElement("li");
+    li_titulo.innerText = "Estos viajes se eliminaran:";
+    lista_total.append(li_titulo);   
+    for(let unViaje of recupero_arreglo){
+        console.log(unViaje);
+        let li_total = document.createElement("li");
+        li_total.innerHTML = `<span>Origen: ${unViaje.origen} Destino: ${unViaje.destino} Cantidad pasajeros: ${unViaje.cantidad_pasajeros} Vehiculo: ${unViaje.vehiculo} Costo total: ${unViaje.costototal}</span>`
+        lista_total.append(li_total);
     }
    
-    for(let i=0; i<contadorobjetos;i++){
+    for(let i=0; i<parseInt(localStorage.getItem("Acum_sesion"));i++){
         arr_viajes.pop();
+        localStorage.removeItem("viaje");
     }
-    console.log("arreglo luego de borrar");
-    console.log(arr_viajes);
+    localStorage.setItem("Acum_sesion",0);
+*/
 
     
 
