@@ -10,13 +10,7 @@ let totalpasajeros= 0;
 let acumuladorauto = 0;
 let acumuladormoto = 0;
 let acumuladorcamioneta = 0;
-//let contadorobjetos = 0;
-/*
-localStorage.setItem("Acum_pasajeros", totalpasajeros);
-localStorage.setItem("Acum_autos",acumuladorauto);
-localStorage.setItem("Acum_motos",acumuladormoto);
-localStorage.setItem("Acum_camionetas",acumuladorcamioneta);*/
-//localStorage.setItem("Acum_sesion",contadorobjetos);
+
 
 class Viaje{
     constructor(origen,destino,cantidad_pasajeros,vehiculo){
@@ -83,17 +77,12 @@ form.addEventListener("submit" , function(e){
     let destino = document.getElementById("destino").value;
     let vehiculo = document.getElementById("vehiculo").value;
     let cantidad_pasajeros = Number(document.getElementById("pasajeros").value);
-    //let mensajes = document.getElementById("mensajes");
-    //console.log(origen,destino,vehiculo,cantidad_pasajeros);
+    
     if(destino == origen){
         alert("El destino no puede ser igual al origen");
-        //let msje = document.createElement("p");
-        //msje.innerHTML = `<span>El destino no puede ser igual al origen</span>`;
-        //mensajes.append(msje);
+       
     }else if(cantidad_pasajeros == "" || vehiculo == "" || destino == "destino" || origen == "origen"){
-        //let msjecantidad = document.createElement("p");
-        //msjecantidad.innerText = `Ingrese la cantidad`;
-        //mensajes.append(msje);
+        
         alert("Ingrese todos los campos");
     }else{
 
@@ -113,10 +102,7 @@ form.addEventListener("submit" , function(e){
         totalpasajeros = parseInt(localStorage.getItem("Acum_pasajeros"));
         totalpasajeros = totalpasajeros - cantidad_pasajeros;
         localStorage.setItem("Acum_pasajeros", totalpasajeros);
-        //let msje_dos = document.createElement("p");
-        //msje_dos.innerText = `No hay capacidad disponible de pasajeros`;
-        //mensajes.append(msje_dos);
-        //cantidad_pasajeros = 0;
+        
         
     }else{    
         if(vehiculo == "moto"){
@@ -158,10 +144,7 @@ form.addEventListener("submit" , function(e){
         alert("No hay capacidad suficiente para motos");
         totalpasajeros = totalpasajeros - cantidad_pasajeros;
         localStorage.setItem("Acum_pasajeros", totalpasajeros);
-        //let msje_tres = document.createElement("p");
-        //msje_tres.innerText = `No hay capacidad suficiente para motos`;
-        //mensajes.append(msje_tres);
-        //vehiculo = "";
+        
         
     }else if(vehiculo == "camioneta" && parseInt(localStorage.getItem("Acum_camionetas"))>capacidad_total_camionetas){
         acumuladorcamioneta--;
@@ -169,10 +152,7 @@ form.addEventListener("submit" , function(e){
         alert("No hay capacidad suficiente para camionetas");
         totalpasajeros = totalpasajeros - cantidad_pasajeros;
         localStorage.setItem("Acum_pasajeros", totalpasajeros);
-        //let msje_cuatro = document.createElement("p");
-        //msje_cuatro.innerText = `No hay capacidad suficiente para camionetas`
-        //mensajes.append(msje_cuatro);
-        //vehiculo = "";
+       
         
     }else if(vehiculo == "auto" && parseInt(localStorage.getItem("Acum_autos"))>capacidad_total_autos){
         acumuladorauto--;
@@ -180,24 +160,16 @@ form.addEventListener("submit" , function(e){
         alert("No hay capacidad suficiente para autos");
         totalpasajeros = totalpasajeros - cantidad_pasajeros;
         localStorage.setItem("Acum_pasajeros", totalpasajeros);
-        //let msje_cinco = document.createElement("p");
-        //msje_cinco.innerText = `No hay capacidad suficiente para autos`;
-        //mensajes.append(msje_cinco);
-        //vehiculo = "";
+   
         
     }else{
 
 let nuevo_viaje = new Viaje(origen,destino,cantidad_pasajeros,vehiculo);
-//contadorobjetos++;
-//localStorage.setItem("Acum_sesion",contadorobjetos);
 let costo_vehiculo = nuevo_viaje.calcular_costo_vehiculo();
 let costo_pasajeros = nuevo_viaje.calcular_costo_pasajeros();
 let total_con_impuestos = nuevo_viaje.calcular_total_con_impuestos(costo_vehiculo,costo_pasajeros);
 nuevo_viaje.costototal = total_con_impuestos;
-//console.log("El costo del pasaje es", total_con_impuestos);
-/*let msje_costo = document.createElement("p");
-msje_costo.innerText = `El costo del pasaje es: $${total_con_impuestos}`;
-mensajes.append(msje_costo);*/
+
 //AGREGO LOS OBJETOS AL ARREGLO A TRAVÉS DEL MÉTODO PUSH
 arr_viajes.push(nuevo_viaje);
 let id_viaje = arr_viajes.indexOf(nuevo_viaje);
@@ -210,9 +182,7 @@ localStorage.setItem("viaje",JSON_arreglo);
 //LISTO EL VIAJE
 let lista = document.getElementById("lista_viajes");
         let li = document.createElement("li");
-        /*let li_id = document.createElement("li");
-        li_id.innerHTML = `<span>Id del viaje: ${nuevo_viaje.id}</span>`;
-        lista.append(li_id);*/
+        
         li.innerHTML = `<span>Origen: ${nuevo_viaje.origen} Destino: ${nuevo_viaje.destino} Cantidad pasajeros: ${nuevo_viaje.cantidad_pasajeros} Vehiculo: ${nuevo_viaje.vehiculo} Costo total: ${nuevo_viaje.costototal}
         </span><button id= ${nuevo_viaje.id} class="borrar">Cancelar viaje</button>`;
         lista.append(li);
@@ -225,7 +195,6 @@ let lista = document.getElementById("lista_viajes");
 });
 
 function borrarviaje(e){
-    //console.log(e)
     let hijo = parseInt(e.target.id);
     let padre = e.target.parentNode;
     padre.remove();
@@ -304,9 +273,6 @@ botonborrar.addEventListener("click", function(){
     }
     localStorage.setItem("Acum_sesion",0);
 */
-
-    
-
 
 });
 
