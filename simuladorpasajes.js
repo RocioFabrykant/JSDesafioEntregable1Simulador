@@ -149,7 +149,7 @@ form.addEventListener("submit" , function(e){
    
         
     }else{
-
+//GENERO ID UNICO DEL VIAJE
 let id = uniqueID();
 let nuevo_viaje = new Viaje(id,origen,destino,cantidad_pasajeros,vehiculo);
 let costo_vehiculo = nuevo_viaje.calcular_costo_vehiculo();
@@ -159,18 +159,16 @@ nuevo_viaje.costototal = total_con_impuestos;
 
 
 //AGREGO LOS OBJETOS AL ARREGLO A TRAVÉS DEL MÉTODO PUSH ANTES IGUALO CON EL ALMACENAMIENTO EN CASO QUE HAYA, PARA QUE NO SE PISEN INDEX
-if(JSON.parse(localStorage.getItem("viaje")) != undefined ||JSON.parse(localStorage.getItem("viaje")) != null ){
+if(JSON.parse(localStorage.getItem("viaje")) != undefined && JSON.parse(localStorage.getItem("viaje")) != null ){
     arr_viajes = JSON.parse(localStorage.getItem("viaje"));
     arr_viajes.push(nuevo_viaje);
 }else{
     arr_viajes.push(nuevo_viaje);
 }
 
-console.log(arr_viajes);
 //CONVIERTO A JSON EL ARREGLO
 let JSON_arreglo = JSON.stringify(arr_viajes);
 localStorage.setItem("viaje",JSON_arreglo);
-console.log(JSON.parse(localStorage.getItem("viaje")));
 
 
 //LISTO EL VIAJE
@@ -189,12 +187,12 @@ let lista = document.getElementById("lista_viajes");
 });
 
 function listarviajesdelasesion(viajes){
+    
+    if(viajes != null && viajes != undefined){
     let lista_total = document.getElementById("lista_total");
     let li_titulo = document.createElement("li");
     li_titulo.innerText = "Viajes recuperados de la sesion:";
     lista_total.append(li_titulo);
-    if(viajes != null || viajes != undefined){
-
    
     for(let viaje of viajes){ 
     let li_contenido = document.createElement("li");
