@@ -79,11 +79,11 @@ form.addEventListener("submit" , function(e){
     let cantidad_pasajeros = Number(document.getElementById("pasajeros").value);
     
     if(destino == origen){
-        alert("El destino no puede ser igual al origen");
+        msje_alerta("El destino no puede ser igual al origen");
        
-    }else if(cantidad_pasajeros == "" || vehiculo == "" || destino == "destino" || origen == "origen"){
-        
-        alert("Ingrese todos los campos");
+    }else if(cantidad_pasajeros == "" || vehiculo == "" || destino == "destino" || origen == "origen"){  
+        msje_alerta("Ingrese todos los campos");
+
     }else{
 
     
@@ -97,7 +97,7 @@ form.addEventListener("submit" , function(e){
     
     
     if(parseInt(localStorage.getItem("Acum_pasajeros"))> capacidad_total_pasajeros){
-        alert("No hay capacidad disponible");
+        msje_alerta("No hay capacidad disponible");
         totalpasajeros = parseInt(localStorage.getItem("Acum_pasajeros"));
         restar_pasajeros(cantidad_pasajeros);
         
@@ -132,19 +132,19 @@ form.addEventListener("submit" , function(e){
 
     if(vehiculo == "moto" && parseInt(localStorage.getItem("Acum_motos"))>capacidad_total_motos){
         restar_moto();
-        alert("No hay capacidad suficiente para motos");
+        msje_alerta("No hay capacidad suficiente para motos");
         restar_pasajeros(cantidad_pasajeros);
         
         
     }else if(vehiculo == "camioneta" && parseInt(localStorage.getItem("Acum_camionetas"))>capacidad_total_camionetas){
         restar_camioneta();
-        alert("No hay capacidad suficiente para camionetas");
+        msje_alerta("No hay capacidad suficiente para camionetas");
         restar_pasajeros(cantidad_pasajeros);
        
         
     }else if(vehiculo == "auto" && parseInt(localStorage.getItem("Acum_autos"))>capacidad_total_autos){
         restar_auto();
-        alert("No hay capacidad suficiente para autos");
+        msje_alerta("No hay capacidad suficiente para autos");
         restar_pasajeros(cantidad_pasajeros);
    
         
@@ -185,6 +185,23 @@ let lista = document.getElementById("lista_viajes");
 }
     }}
 });
+
+function msje_alerta(mensaje){
+    //TOASTIFY PARA INCORPORAR ALERTAS RAPIDAS, EN FORMATO DE PEQUEÑO MENSAJE PARA INDICAR
+    //AL USUARIO QUE LE FALTA COMPLETAR DATOS, QUE ALGUNO ES ERRONEO O NO HAY CAPACIDAD DISPONIBLE
+    Toastify({
+        text: mensaje,
+        gravity:"top",
+        position:"center",
+        duration: 1500,
+        style:{
+            fontSize:"15px",
+            fontFamily:"Calibri",
+            color:"black",
+            background:"#b1b5b2"
+        }
+        }).showToast();
+}
 
 function listarviajesdelasesion(viajes){
     
@@ -245,20 +262,36 @@ function uniqueID() {
 }
 
 function borrarviaje(e){
+    //PARA CANCELAR VIAJES IMPLEMENTO SWEET ALERT, PARA QUE EL USUARIO CONFIRME PREVIAMENTE
     borrar_campos();
-    let hijo = parseInt(e.target.id);
-    let padre = e.target.parentNode;
-    padre.remove();
-    let recupero_arreglo = [];
-    recupero_arreglo = JSON.parse(localStorage.getItem("viaje"));
-    let rdo_objeto_viaje = buscarviaje_id(recupero_arreglo,hijo);
-    if(recupero_arreglo[rdo_objeto_viaje].vehiculo == "moto"){
+    Swal.fire({
+        title: 'Deseas eliminar el viaje?',
+        text: "Se cancelará el viaje registrado",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar viaje',
+        cancelButtonText:'Cancelar',
+        color:"black",
+        background:"#b1b5b2"
+        
+        
+      }).then((result) => {
+        if (result.isConfirmed) {
+        let hijo = parseInt(e.target.id);  
+        let padre = e.target.parentNode;
+        padre.remove();
+        let recupero_arreglo = [];
+        recupero_arreglo = JSON.parse(localStorage.getItem("viaje"));
+        let rdo_objeto_viaje = buscarviaje_id(recupero_arreglo,hijo);
+        if(recupero_arreglo[rdo_objeto_viaje].vehiculo == "moto"){
         acumuladormoto = parseInt(localStorage.getItem("Acum_motos"));
         restar_moto();
-    }else if(recupero_arreglo[rdo_objeto_viaje].vehiculo == "auto"){
+        }else if(recupero_arreglo[rdo_objeto_viaje].vehiculo == "auto"){
         acumuladorauto = parseInt(localStorage.getItem("Acum_autos"));
         restar_auto();
-    }else if(recupero_arreglo[rdo_objeto_viaje].vehiculo == "camioneta"){
+        }else if(recupero_arreglo[rdo_objeto_viaje].vehiculo == "camioneta"){
         acumuladorcamioneta = parseInt(localStorage.getItem("Acum_camionetas"));
         restar_camioneta();
     }
@@ -268,6 +301,16 @@ function borrarviaje(e){
     recupero_arreglo.splice(rdo_objeto_viaje,1);
     let JSON_arreglo = JSON.stringify(recupero_arreglo);
     localStorage.setItem("viaje", JSON_arreglo);
+          Swal.fire({
+            text:'El viaje se ha eliminado',
+            color:"black",
+            background:"#b1b5b2"
+          }
+            
+          )
+        }
+      })
+    
     
 
 }
@@ -283,45 +326,6 @@ function buscarviaje_id(viajes,el_id){
 let botonborrar = document.getElementById("borrar");
 botonborrar.addEventListener("click", function(){    
     borrar_campos();
-    /*localStorage.setItem("Acum_pasajeros", 0);
-    localStorage.setItem("Acum_autos",0);
-    localStorage.setItem("Acum_motos",0);
-    localStorage.setItem("Acum_camionetas",0);
-    let lista = document.getElementById("lista_viajes");
-    while(lista.firstChild){
-        lista.removeChild(lista.lastChild);
-    }
-    
-    let mensajes = document.getElementById("mensajes");
-    while(mensajes.firstChild){
-        mensajes.removeChild(mensajes.lastChild);
-    }
-    */
-    /*console.log("Arreglo antes de borrar registros"); 
-    /*ANTES DEL LOCAL STORAGE:
-    for(let viaje of arr_viajes){
-        
-        console.log(viaje);
-    }*/
-    /*
-    let recupero_arreglo = JSON.parse(localStorage.getItem("viaje"));
-    let lista_total = document.getElementById("lista_total");
-    let li_titulo = document.createElement("li");
-    li_titulo.innerText = "Estos viajes se eliminaran:";
-    lista_total.append(li_titulo);   
-    for(let unViaje of recupero_arreglo){
-        console.log(unViaje);
-        let li_total = document.createElement("li");
-        li_total.innerHTML = `<span>Origen: ${unViaje.origen} Destino: ${unViaje.destino} Cantidad pasajeros: ${unViaje.cantidad_pasajeros} Vehiculo: ${unViaje.vehiculo} Costo total: ${unViaje.costototal}</span>`
-        lista_total.append(li_total);
-    }
-   
-    for(let i=0; i<parseInt(localStorage.getItem("Acum_sesion"));i++){
-        arr_viajes.pop();
-        localStorage.removeItem("viaje");
-    }
-    localStorage.setItem("Acum_sesion",0);
-*/
 
 });
 function borrar_campos(){
