@@ -19,7 +19,8 @@ fetch("https://api.openweathermap.org/data/2.5/weather?q=Montevideo&units=metric
 .then(response => response.json() )
 .then(data => {
     console.log(data);
-    contenedorclima.innerHTML = `<span>Ciudad: ${data.name}</span>
+    contenedorclima.innerHTML = `<img src="img/banderaiconouy.jpg" width="30px" alt="banderaiconouy">
+                            <span>${data.name}</span>
                             <span>Temperatura actual: ${data.main.temp}°C</span>`
 })
 let contenedorclima2 = document.getElementById("clima2");
@@ -27,7 +28,9 @@ fetch("https://api.openweathermap.org/data/2.5/weather?q=Buenos Aires&units=metr
 .then(response => response.json() )
 .then(data => {
     console.log(data);
-    contenedorclima2.innerHTML = `<span>Ciudad: ${data.name}</span>
+    contenedorclima2.innerHTML = `<br>
+                            <img src="img/banderaiconoarg.jpg" width="30px" alt="banderaiconoarg">
+                            <span>${data.name}</span>
                             <span>Temperatura actual: ${data.main.temp}°C</span>`
 })
 
