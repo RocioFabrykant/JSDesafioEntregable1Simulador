@@ -14,6 +14,23 @@ let acumuladorauto = 0;
 let acumuladormoto = 0;
 let acumuladorcamioneta = 0;
 
+let contenedorclima = document.getElementById("clima");
+fetch("https://api.openweathermap.org/data/2.5/weather?q=Montevideo&units=metric&appid=cebba3c78d2e90014b5ee03aa581d80a")
+.then(response => response.json() )
+.then(data => {
+    console.log(data);
+    contenedorclima.innerHTML = `<span>Ciudad: ${data.name}</span>
+                            <span>Temperatura actual: ${data.main.temp}°C</span>`
+})
+let contenedorclima2 = document.getElementById("clima2");
+fetch("https://api.openweathermap.org/data/2.5/weather?q=Buenos Aires&units=metric&appid=cebba3c78d2e90014b5ee03aa581d80a")
+.then(response => response.json() )
+.then(data => {
+    console.log(data);
+    contenedorclima2.innerHTML = `<span>Ciudad: ${data.name}</span>
+                            <span>Temperatura actual: ${data.main.temp}°C</span>`
+})
+
 
 class Viaje{
     constructor(id,origen,destino,cantidad_pasajeros,vehiculo){
