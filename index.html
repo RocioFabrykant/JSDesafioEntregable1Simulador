@@ -8,21 +8,28 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/themes@5.0.12/bulma/bulma.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="estilos.css">
     <title>Simulador pasajes de buque</title>
 </head>
-<body>
+<body class="conjunto">
+    <header class="encabezado">
+    
     <div id="clima">
         
     </div>
     
     <div id="clima2">
-        
+     
     </div>
-    <h1>Bienvenidos a Buques Fabrykant</h1>
-    <p>Aqui podrá calcular el costo de sus pasajes y verificar disponibilidad</p>
+    </header>
+    <main class="cuerpo">
+         
+    <h1 class="display-6 titulo">Bienvenidos a Buques Fabrykant</h1>
+    <p>Aquí podrá calcular el costo de sus pasajes y verificar disponibilidad</p>
     <form action="#" method="get" id="form">
         <label>
-            <select name="origen" id="origen">
+            <select class="form-select" aria-label="Default select example" name="origen" id="origen">
                 <option value="origen">Elija Origen</option>
                 <option value="Buenos Aires">Buenos Aires</option>
                 <option value="Colonia">Colonia</option>
@@ -30,7 +37,7 @@
             </select>
         </label>
         <label>
-            <select name="destino" id="destino">
+            <select class="form-select" aria-label="Default select example" name="destino" id="destino">
                 <option value="destino">Elija Destino</option>
                 <option value="Buenos Aires">Buenos Aires</option>
                 <option value="Colonia">Colonia</option>
@@ -40,7 +47,7 @@
             <input id="pasajeros" type="number" min="1" name="pasajeros" placeholder="Cantidad pasajeros">
         <br>
         <label>
-            <select name="vehiculo" id="vehiculo">
+            <select class="form-select" aria-label="Default select example" name="vehiculo" id="vehiculo">
                 <option value="">Seleccione vehiculo</option>
                 <option value="no">No</option>
                 <option value="auto">Auto</option>
@@ -49,18 +56,20 @@
             </select>
         </label>
         <br><br>
-        <input type="submit" value="Registrar viaje">
+        <input class="btn btn-success" type="submit" value="Registrar viaje">
         
     </form>
     <br>
-    <button id="borrar">Borrar campos</button>
-
+    <button type="button" class="btn btn-success" id="borrar">Borrar campos</button>
+    </main>
+    <footer class="pie card">
     <ul id="lista_viajes">
 
     </ul>
     <ul id="lista_total">
 
     </ul>
+    </footer>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="simuladorpasajes.js"></script>
 </body>

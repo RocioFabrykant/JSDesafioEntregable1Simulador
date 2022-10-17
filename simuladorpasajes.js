@@ -196,7 +196,7 @@ let lista = document.getElementById("lista_viajes");
         let li = document.createElement("li");
         
         li.innerHTML = `<span>Origen: ${nuevo_viaje.origen} Destino: ${nuevo_viaje.destino} Cantidad pasajeros: ${nuevo_viaje.cantidad_pasajeros} Vehiculo: ${nuevo_viaje.vehiculo} Costo total: ${nuevo_viaje.costototal}
-        </span><button id= ${nuevo_viaje.id} class="borrar">Cancelar viaje</button>`;
+        </span><button id= ${nuevo_viaje.id} class="borrar btn btn-danger">Cancelar viaje</button>`;
         lista.append(li);
         let botones_borrar = document.querySelectorAll(".borrar");
         for(let boton of botones_borrar){
@@ -228,13 +228,13 @@ function listarviajesdelasesion(viajes){
     if(viajes != null && viajes != undefined){
     let lista_total = document.getElementById("lista_total");
     let li_titulo = document.createElement("li");
-    li_titulo.innerText = "Viajes recuperados de la sesion:";
+    li_titulo.innerText = "Viajes recuperados de la sesión:";
     lista_total.append(li_titulo);
    
     for(let viaje of viajes){ 
     let li_contenido = document.createElement("li");
     li_contenido.innerHTML = `<span>Origen: ${viaje.origen} Destino: ${viaje.destino} Cantidad pasajeros: ${viaje.cantidad_pasajeros} Vehiculo: ${viaje.vehiculo} Costo total: ${viaje.costototal}
-    </span><button id= ${viaje.id} class="borrar">Cancelar viaje</button>`;
+    </span><button id= ${viaje.id} class="borrar btn btn-danger">Cancelar viaje</button>`;
     lista_total.append(li_contenido); 
 }
 }
